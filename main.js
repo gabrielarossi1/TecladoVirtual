@@ -244,20 +244,32 @@ function renderKeyboard(){
         keyboardContainer.innerHTML += `<div class= "layer">${layer}</div>`
     });
 
-    document.querySelectorAll('.key').forEach(key => {
-        key.addEventListener('click', e => {
-            if(current){
-                if(key.textContent === 'SHIFT'){
+    document.querySelectorAll('.key').forEach((key) => {
+        key.addEventListener('click', (e) => {
+            if (current) {
+                if (key.textContent === 'SHIFT') {
                     shift = !shift;
-                    renderKeyboard();
+                } else if (key.textContent === 'MAYUS') {
+                    mayus = !mayus;
+                } else if (key.textContent === "") {
+                    current.value += " ";
+                } else {
+                    current.value += key.textContent.trim();
+                    if (shift) {
+                        shift = false;
+                    }
                 }
+                renderKeyboard();
+                current.focus();
             }
         });
     });
 }
 
+
 document.querySelectorAll("input").forEach(input => {
     input.addEventListener('focusin', e => {
         current = e.target
-    })
-})
+    });
+});
+
